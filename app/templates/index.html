@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OpenBB Finance App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        form {
+            text-align: center;
+            margin: 20px;
+        }
+        input[type="text"], input[type="submit"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="text"] {
+            width: 200px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>📈 OpenBB Finance App</h1>
+    <form action="/stock/" method="get">
+        <input type="text" name="symbol" placeholder="Enter Stock Symbol (e.g., AAPL)" required>
+        <input type="submit" value="Get Data">
+    </form>
+
+    {% if data %}
+        <h2>Stock Data for {{ symbol.upper() }}</h2>
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Open</th>
+                <th>High</th>
+                <th>Low</th>
+                <th>Close</th>
+                <th>Volume</th>
+            </tr>
+            {% for date, row in data['open'].items() %}
+            <tr>
+                <td>{{ date }}</td>
+                <td>{{ row }}</td>
+                <td>{{ data['high'][date] }}</td>
+                <td>{{ data['low'][date] }}</td>
+                <td>{{ data['close'][date] }}</td>
+                <td>{{ data['volume'][date] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if news %}
+        <h2>📢 Latest News for {{ symbol.upper() }}</h2>
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Summary</th>
+                <th>Link</th>
+            </tr>
+            {% for article in news %}
+            <tr>
+                <td>{{ article.title }}</td>
+                <td>{{ article.summary }}</td>
+                <td>
+                    {% if article.link %}
+                        <a href="{{ article.link }}" target="_blank">Read more</a>
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>
