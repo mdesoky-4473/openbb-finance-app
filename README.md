@@ -21,3 +21,23 @@ Welcome to the **OpenBB Finance App**, a simple, user-friendly web application t
    ```bash
    git clone https://github.com/mdesoky-4473/openbb-finance-app.git
    cd openbb-finance-app
+
+
+2. **Set Up a Virtual Environment:**
+
+    bash
+    python -m venv venv
+    # Activate the virtual environment:
+    # On Windows:
+    venv\Scripts\activate
+    # On Mac/Linux:
+    source venv/bin/activate
+
+3. **Install Dependencies:**
+
+    bash
+    pip install -r requirements.txt
+
+## Running the App
+    bash
+    uvicorn app.main:app --reload
